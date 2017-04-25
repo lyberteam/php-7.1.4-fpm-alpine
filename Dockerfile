@@ -20,6 +20,8 @@ RUN apk update && apk add  --no-cache \
     libpng-dev \
     libjpeg-turbo \
     libjpeg-turbo-dev g++ make autoconf
+
+
 RUN docker-php-ext-configure gd \
         --with-gd \
         --with-freetype-dir=/usr/include/ \
@@ -31,26 +33,24 @@ RUN docker-php-ext-configure gd \
 RUN docker-php-source extract \
     && pecl install xdebug redis opcache\
     && docker-php-ext-enable xdebug redis opcache\
-    && docker-php-source delete
+    && docker-php-source delete \
+    && docker-php-ext-install mcrypt \
+    && docker-php-ext-install bcmath \
+    && docker-php-ext-install pdo \
+    && docker-php-ext-install pdo_pgsql \
+    && docker-php-ext-install pdo_mysql \
+    && docker-php-ext-install soap \
+    && docker-php-ext-install iconv \
+    && docker-php-ext-install zip \
+    && docker-php-ext-install bz2 \
+    && docker-php-ext-install mbstring \
+    && docker-php-ext-install intl \
     && echo "xdebug.remote_enable=on\n" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
     && echo "xdebug.remote_autostart=on\n" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
     && echo "xdebug.remote_port=9000\n" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
     && echo "xdebug.remote_handler=dbgp\n" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
-    && echo "xdebug.remote_connect_back=1\n" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-
-RUN  docker-php-ext-install \
-     mcrypt \
-     bcmath \
-     pdo \
-     pdo_pgsql \
-     pdo_mysql \
-     soap \
-     iconv \
-     zip \
-     bz2 \
-     mbstring \
-     intl \
-     && rm -rf /tmp/*
+    && echo "xdebug.remote_connect_back=1\n" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && rm -rf /tmp/*
 
 
 # Change TimeZone
