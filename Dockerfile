@@ -6,16 +6,28 @@ LABEL Description="PHP-FPM v7.1.4-alpine"
 LABEL Version="1.0.1"
 
 
-RUN apk update \
-    && apk add  --no-cache git mysql-client curl mc libmcrypt libmcrypt-dev \
-    libxml2-dev freetype freetype-dev libpng libpng-dev libjpeg-turbo libjpeg-turbo-dev g++ make autoconf
-RUN    docker-php-ext-configure gd \
+RUN apk update && apk add  --no-cache \
+    git \
+    mysql-client \
+    curl \
+    mc \
+    libmcrypt \
+    libmcrypt-dev \
+    libxml2-dev \
+    freetype \
+    freetype-dev \
+    libpng \
+    libpng-dev \
+    libjpeg-turbo \
+    libjpeg-turbo-dev g++ make autoconf
+RUN docker-php-ext-configure gd \
         --with-gd \
         --with-freetype-dir=/usr/include/ \
         --with-png-dir=/usr/include/ \
-        --with-jpeg-dir=/usr/include/ && \
-      docker-php-ext-install gd && \
-      apk del --no-cache freetype freetype-dev libpng libpng-dev libjpeg-turbo libjpeg-turbo-dev
+        --with-jpeg-dir=/usr/include/ \
+      && docker-php-ext-install gd \
+      && apk del --no-cache freetype freetype-dev libpng libpng-dev libjpeg-turbo libjpeg-turbo-dev
+
 RUN docker-php-source extract \
     && pecl install xdebug redis opcache\
     && docker-php-ext-enable xdebug redis opcache\
