@@ -16,7 +16,7 @@ RUN apk update \
         --with-png-dir=/usr/include/ \
         --with-jpeg-dir=/usr/include/ && \
       NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) && \
-      docker-php-ext-install -j${NPROC} gd && \
+      docker-php-ext-install gd && \
       apk del --no-cache freetype freetype-dev libpng libpng-dev libjpeg-turbo libjpeg-turbo-dev \
     && \
        docker-php-source extract \
