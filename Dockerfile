@@ -36,7 +36,6 @@ RUN docker-php-source extract \
     && docker-php-source delete \
     && docker-php-ext-install mcrypt \
     && docker-php-ext-install bcmath \
-    && docker-php-ext-install pdo \
     && docker-php-ext-install pdo_pgsql \
     && docker-php-ext-install pdo_mysql \
     && docker-php-ext-install soap \
