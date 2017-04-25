@@ -58,7 +58,7 @@ ADD symfony.pool.conf /usr/local/etc/php-fpm.d/
 RUN rm -f /usr/local/etc/php-fpm.d/www.conf
 
 
-RUN usermod -u 1000 www-data
+USER www-data
 
 CMD ["php-fpm"]
 
