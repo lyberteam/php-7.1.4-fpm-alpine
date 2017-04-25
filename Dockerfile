@@ -67,7 +67,7 @@ WORKDIR /var/www/lyberteam
 
 EXPOSE 9000
 
-RUN  dpkg-reconfigure -f noninteractive tzdata
+#RUN  dpkg-reconfigure -f noninteractive tzdata
 RUN  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 
