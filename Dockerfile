@@ -1,10 +1,5 @@
 FROM php:7.1.4-fpm-alpine
 
-ADD lyberteam-message.sh /var/www/lyberteam/lyberteam-message.sh
-RUN chmod +x /var/www/lyberteam/lyberteam-message.sh
-RUN /var/www/lyberteam/lyberteam-message.sh && rm -rf/var/www/lyberteam/
-
-
 MAINTAINER Lyberteam <lyberteamltd@gmail.com>
 LABEL Vendor="Lyberteam"
 LABEL Description="PHP-FPM v7.1.4-alpine"
