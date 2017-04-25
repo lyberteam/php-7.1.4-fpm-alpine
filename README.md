@@ -12,8 +12,6 @@
 
 > PHP installed also globally
 
-<!-- > Also we configure xdebug.ini for xdebug but all directives are turned off by default -->
-
 ## Programs
    * curl
    * git
