@@ -8,19 +8,25 @@ LABEL Version="1.0.1"
 
 RUN apk update \
     && apk add  --no-cache git mysql-client curl mc libmcrypt libmcrypt-dev \
-    libxml2-dev freetype freetype-dev libpng libpng-dev libjpeg-turbo libjpeg-turbo-dev g++ make autoconf && \
-    docker-php-ext-configure gd \
+    libxml2-dev freetype freetype-dev libpng libpng-dev libjpeg-turbo libjpeg-turbo-dev g++ make autoconf
+RUN    docker-php-ext-configure gd \
         --with-gd \
         --with-freetype-dir=/usr/include/ \
         --with-png-dir=/usr/include/ \
         --with-jpeg-dir=/usr/include/ && \
       docker-php-ext-install gd && \
-      apk del --no-cache freetype freetype-dev libpng libpng-dev libjpeg-turbo libjpeg-turbo-dev && \
-    docker-php-source extract \
+      apk del --no-cache freetype freetype-dev libpng libpng-dev libjpeg-turbo libjpeg-turbo-dev
+RUN docker-php-source extract \
     && pecl install xdebug redis opcache\
     && docker-php-ext-enable xdebug redis opcache\
-    && docker-php-source delete \
-    && docker-php-ext-install \
+    && docker-php-source delete
+    && echo "xdebug.remote_enable=on\n" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.remote_autostart=on\n" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.remote_port=9000\n" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.remote_handler=dbgp\n" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.remote_connect_back=1\n" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+
+RUN  docker-php-ext-install \
      mcrypt \
      bcmath \
      pdo \
@@ -32,13 +38,8 @@ RUN apk update \
      bz2 \
      mbstring \
      intl \
-    && echo "xdebug.remote_enable=on\n" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
-    && echo "xdebug.remote_autostart=on\n" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
-    && echo "xdebug.remote_port=9000\n" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
-    && echo "xdebug.remote_handler=dbgp\n" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
-    && echo "xdebug.remote_connect_back=1\n" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
-    && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
-    && rm -rf /tmp/*
+     && rm -rf /tmp/*
+
 
 # Change TimeZone
 RUN echo "Set default timezone - Europe/Kiev"
