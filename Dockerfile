@@ -53,7 +53,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ 
 
 COPY php.ini /usr/local/etc/php/
 
-RUN /bin/bash -c 'rm -f /usr/local/etc/php-fpm.d/www.conf.default'
+RUN rm -f /usr/local/etc/php-fpm.d/www.conf.default
 ADD symfony.pool.conf /usr/local/etc/php-fpm.d/
 RUN rm -f /usr/local/etc/php-fpm.d/www.conf
 
