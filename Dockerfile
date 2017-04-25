@@ -63,13 +63,12 @@ USER www-data
 CMD ["php-fpm"]
 
 ## Let's set the working dir
-VOLUME /var/www/lyberteam
-
+WORKDIR /var/www/lyberteam
 
 EXPOSE 9000
 
 RUN  dpkg-reconfigure -f noninteractive tzdata
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 
 #
